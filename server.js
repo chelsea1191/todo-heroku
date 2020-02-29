@@ -1,54 +1,52 @@
 const express = require("express");
 const app = express();
-const router = express.Router();
 const path = require("path");
-const morgan = require("morgan");
-const fs = require("fs");
 const db = require("./db");
+app.use(express.json());
 const bodyParser = require("body-parser");
-const port = process.env.PORT || 3000;
-
-//to change git remote: git remote set-url origin (new.git.url/here)
+app.use(bodyParser.json());
+app.use("/assets", express.static("assets"));
+const morgan = require("morgan");
 
 //////////////////use///////////////////
-app.use(express.json());
 app.use(
   morgan(":method :url :status :res[content-length] - :response-time ms")
 );
-app.use(bodyParser.json());
-app.use("/assets", express.static("assets"));
 
 //////////////////get////////////////////
-app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname + "/index.html"));
+app.get("/", (req, res, next) => {
+  res.sendFile(path.join(__dirname, "index.html"));
 });
-// app.get("/api/users", async (req, res, next) => {
-//   await db
-//     .readUsers()
-//     .then(users => res.send(users))
-//     .catch(next);
-// });
+
+app.get("/api/todos", async (req, res, next) => {
+  await db
+    .readTodos()
+    .then(todos => res.send(todos))
+    .catch(next);
+});
 
 //////////////////post////////////////////
-// app.post("/api/users", (req, res, next) => {
-//   db.createUser(req.body)
-//     .then(user => res.send(user))
-//     .catch(next);
-// });
-
-///////////////////put////////////////////
-// app.put("/api/user_things/:id", (req, res, next) => {
-//   db.updateUserThings(req.body)
-//     .then(userThing => res.send(userThing))
-//     .catch(next);
-// });
+app.post("/api/todos", (req, res, next) => {
+  db.createTodo(req.body)
+    .then(todo => res.send(todo))
+    .catch(next);
+});
 
 //////////////////delete////////////////////
-// app.delete("/api/users/:id", (req, res, next) => {
-//   db.deleteUser(req.params.id)
-//     .then(() => res.sendStatus(204)) //since no return
-//     .catch(next);
-// });
+app.delete("/api/todos/:id", (req, res, next) => {
+  db.deleteTodo(req.params.id)
+    .then(() => res.sendStatus(204)) //since no return
+    .catch(next);
+});
+
+//////////////////put//////////////////////
+app.put("/api/todos/:id", (req, res, next) => {
+  db.updateTodo(req.params.id)
+    .then(todo => res.send(todo))
+    .catch(next);
+});
+
+const port = process.env.PORT || 3000;
 
 db.sync()
   .then(() => {

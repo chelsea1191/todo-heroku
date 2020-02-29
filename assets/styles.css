@@ -1,9 +1,7 @@
-body {
-  font-family: verdana;
-  margin: 0;
-  color: purple;
-  font-weight: bolder;
-}
+/* body {
+  font-family: papyrus;
+  margin: 10px;
+} */
 
 main {
   display: flex;
@@ -21,34 +19,95 @@ nav {
 }
 
 button {
-  height: 2rem;
-  font-size: 1.5rem;
+  height: 1rem;
+  font-size: 0.5rem;
 }
 
-h2 {
-  text-transform: uppercase;
+.button {
+  margin: 10px;
+  font-size: 12px;
+  color: black;
+  border-radius: 4px;
+  transition-duration: 0.2s;
 }
 
-li {
-  display: flex;
-  align-items: center;
+.button:hover {
+  background-color: #4caf50; /* Green */
+  color: white;
 }
 
-li > * {
-  margin: 1rem;
+form {
+  text-align: center;
+  border-radius: 4px;
+}
+
+input[type="text"] {
+  width: 480px;
+  padding: 12px 20px;
+  margin: 8px 0;
+  box-sizing: border-box;
 }
 
 h1 {
-  background-color: teal;
-  padding: 1rem;
-  color: linen;
   text-align: center;
 }
 
-section {
+ul {
+  list-style-position: inside;
+  list-style-type: circle;
+}
+
+.flex {
   display: flex;
   border: solid 2px teal;
   border-radius: 3rem;
   flex-direction: column;
   align-items: center;
+  margin: 1rem;
+}
+
+.archived span {
+  text-decoration: line-through;
+}
+
+@import url("https://fonts.googleapis.com/css?family=Dancing+Script");
+body {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+
+#paper {
+  width: 600px;
+  height: 700px;
+  position: relative;
+  margin: 20px auto;
+  padding-top: 40px;
+  padding-bottom: 40px;
+  background-color: white;
+  box-shadow: 0px 0px 5px 0px #888;
+}
+
+#paper::before {
+  content: "";
+  width: 2px;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 40px;
+  background-color: rgba(255, 0, 0, 0.6);
+}
+
+#pattern {
+  height: 100%;
+  background-image: repeating-linear-gradient(white 0px, white 24px, teal 25px);
+}
+
+#content {
+  padding-top: 6px;
+  padding-left: 56px;
+  padding-right: 16px;
+  line-height: 25px;
+  font-family: "Dancing Script", cursive;
+  font-size: 19px;
+  letter-spacing: 1px;
+  word-spacing: 5px;
 }
