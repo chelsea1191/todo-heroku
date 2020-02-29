@@ -31,8 +31,7 @@
                       key={todo.id}
                     >
                       <span onClick={() => toggle(todo.id)}>
-                        {todo.text} ------> created on:{" "}
-                        {todo.date_create.substr(0, 10)}
+                        {todo.text} ------> due on: {todo.due.substr(0, 10)}
                       </span>
                       <button onClick={() => destroy(todo.id)}>Delete</button>
                     </li>
@@ -48,7 +47,7 @@
         const [todos, setTodos] = useState([]);
         const [error, setError] = useState("");
         const [text, setText] = useState("");
-        //const [due_date, setDate] = useState("");
+        const [due_date, setDate] = useState("");
 
         useEffect(() => {
           axios
@@ -60,7 +59,7 @@
         const create = ev => {
           ev.preventDefault();
           axios
-            .post("/api/todos", { text })
+            .post("/api/todos", { text, due_date })
             .then(response => setTodos([response.data, ...todos]));
         };
 
@@ -93,6 +92,14 @@
                     value={text}
                     placeholder="type in new task here"
                     onChange={ev => setText(ev.target.value)}
+                  />
+                  <input
+                    type="date"
+                    defaultValue="2020-02-29"
+                    onChange={ev => {
+                      //console.log(ev.target.value);
+                      setDate(ev.target.value);
+                    }}
                   />
                   <button className="button" disabled={!text}>
                     Create

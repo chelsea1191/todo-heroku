@@ -36,9 +36,9 @@ const readTodos = async () => {
 };
 
 //////////////////post///////////////////
-const createTodo = async ({ text }) => {
-  const SQL = `INSERT INTO todos (text) VALUES ($1) returning *;`;
-  const response = await client.query(SQL, [text]);
+const createTodo = async ({ text, due_date }) => {
+  const SQL = `INSERT INTO todos (text, due) VALUES ($1, $2) returning *;`;
+  const response = await client.query(SQL, [text, due_date]);
   return response.rows[0];
 };
 
