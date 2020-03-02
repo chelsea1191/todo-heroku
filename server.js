@@ -5,8 +5,10 @@ const db = require("./db");
 app.use(express.json());
 const bodyParser = require("body-parser");
 app.use(bodyParser.json());
-app.use("/assets", express.static("assets"));
+app.use("/assets", express.static(path.join(__dirname, "assets")));
 const morgan = require("morgan");
+
+app.use("/dist", express.static(path.join(__dirname, "dist")));
 
 //////////////////use///////////////////
 app.use(
